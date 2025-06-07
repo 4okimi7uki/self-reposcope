@@ -1,0 +1,45 @@
+name: Update Language Stats
+
+on:
+    schedule:
+        - cron: "0 0 * * 1" # 毎週月曜 0時に実行
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout target repo
+              uses: actions/checkout@v3
+
+            - name: Set up Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                  toolchain: stable
+                  override: true
+
+            - name: Cache cargo dependencies
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.cargo/registry
+                      ~/.cargo/git
+                      target
+                  key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+            - name: Install dependencies
+              run: sudo apt-get update && sudo apt-get install -y pkg-config libssl-dev
+
+            - name: Build and Run self-reposcope
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  cargo run --release
+
+            - name: Commit and Push SVG
+              run: |
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  git add output/*.svg
+                  git commit -m "update: language stats svg"
+                  git push

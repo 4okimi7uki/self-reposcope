@@ -1,3 +1,20 @@
+@media (prefers-color-scheme: light) {
+    #border {
+        fill: #ffffff;
+    }
+    text {
+        color: #333;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    #border {
+        fill: #0d1116;
+    }
+    text {
+        color: #fff;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

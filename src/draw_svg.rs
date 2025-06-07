@@ -31,14 +31,14 @@ pub fn generate_svg(
         let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
         let text_y = y + (bar_height / 2);
 
-        // 言語ラベル
+        // language label
         writeln!(
             file,
-            r#"<text x="{label_margin}" y="{y}" font-size="13" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" fill='#333' alignment-baseline="hanging">{}</text>"#,
+            r#"<text x="{label_margin}" y="{y}" font-size="13" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" fill='currentColor' alignment-baseline="hanging">{}</text>"#,
             lang
         )?;
 
-        // バー
+        // bar
         writeln!(
             file,
             r#"<rect x="{bar_start_x}" y="{y}" width="{bar_width}" height="{bar_height}" fill="{color}" rx="5" ry="5">
@@ -46,7 +46,7 @@ pub fn generate_svg(
 </rect>"#
         )?;
 
-        // バイト数（右または内部）
+        // byte num
         writeln!(
             file,
             r#"<text x="{}" y="{}" font-size="8" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" alignment-baseline="middle" fill="{}">{}</text>"#,
@@ -79,7 +79,7 @@ pub fn generate_compact_svg(
 
     let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2 ;
     let mut file = File::create(output_path)?;
-    let css = include_str!("animation.css");
+    let css = include_str!("style.css");
 
     writeln!(file, r#"<?xml version="1.0" encoding="UTF-8"?>"#)?;
     writeln!(
@@ -87,15 +87,16 @@ pub fn generate_compact_svg(
         r#"<svg width="{svg_width}" height="{svg_height}" xmlns="http://www.w3.org/2000/svg">"#
     )?;
     writeln!(file, r#"<style>{}</style>"#, css).expect("Failed to write CSS");
-    writeln!(file, r#"<rect x="0" y="0" width="{}" height="{}" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />"#, svg_width - 1,svg_height - 1)?;
+    // border
+    writeln!(file, r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />"#, svg_width - 2,svg_height - 2)?;
 
-    // タイトル
+    // title
     writeln!(
         file,
-        r#"<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#2563eb' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>"#
+        r#"<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#cd450b' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>"#
     )?;
     
-    // スタックバー
+    // stack-bar
     let mut current_x = 20;
     let bar_total_width = svg_width - 40;
     
@@ -124,7 +125,7 @@ pub fn generate_compact_svg(
     writeln!(file, r#"<g id="lang_legend">"#)?;
 
 
-    // 凡例（2カラムで並べる）
+    // legend (2 columns)
     let legend_columns = 2;
     let column_width = svg_width / legend_columns - 10;
     for (i, (lang, bytes)) in lang_vec.iter().enumerate() {
@@ -139,7 +140,7 @@ pub fn generate_compact_svg(
         writeln!(
             file,
             r#"<circle cx="{x}" cy="{y}" r="{r}" fill="{color}" />
-<text x="{}" y="{}" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>{lang} {percent:.2}%</text>"#,
+<text x="{}" y="{}" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>{lang} {percent:.2}%</text>"#,
             legend_x + legend_dot_radius + 20,
             legend_y + 4,
             x = legend_x + 10,

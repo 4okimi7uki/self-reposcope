@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="400" height="234" xmlns="http://www.w3.org/2000/svg">
-<style>@keyframes fadeIn {
+<style>@media (prefers-color-scheme: light) {
+    #border {
+        fill: #ffffff;
+    }
+    text {
+        color: #333;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    #border {
+        fill: #0d1116;
+    }
+    text {
+        color: #fff;
+    }
+}
+
+@keyframes fadeIn {
     from {
         opacity: 0;
     }
@@ -25,8 +42,8 @@
     animation: slideIn 1s ease-in forwards;
 }
 </style>
-<rect x="0" y="0" width="399" height="233" fill="#" stroke='#ccc' stroke-width="1" rx="10" ry="10" />
-<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#2563eb' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>
+<rect id="border" x="1" y="1" width="398" height="232" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />
+<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#cd450b' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>
 
 <defs>
     <clipPath id="roundedClip">
@@ -51,28 +68,28 @@
 </g>
 <g id="lang_legend">
 <circle cx="30" cy="90" r="6" fill="#3178c6" />
-<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>TypeScript 50.50%</text>
+<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>TypeScript 50.50%</text>
 <circle cx="220" cy="90" r="6" fill="#f1e05a" />
-<text x="236" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>JavaScript 12.90%</text>
+<text x="236" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>JavaScript 12.90%</text>
 <circle cx="30" cy="114" r="6" fill="#4F5D95" />
-<text x="46" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>PHP 12.87%</text>
+<text x="46" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>PHP 12.87%</text>
 <circle cx="220" cy="114" r="6" fill="#663399" />
-<text x="236" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>CSS 8.38%</text>
+<text x="236" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>CSS 8.38%</text>
 <circle cx="30" cy="138" r="6" fill="#e34c26" />
-<text x="46" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>HTML 7.39%</text>
+<text x="46" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>HTML 7.39%</text>
 <circle cx="220" cy="138" r="6" fill="#3572A5" />
-<text x="236" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Python 5.32%</text>
+<text x="236" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Python 5.32%</text>
 <circle cx="30" cy="162" r="6" fill="#c6538c" />
-<text x="46" y="166" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>SCSS 1.56%</text>
+<text x="46" y="166" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>SCSS 1.56%</text>
 <circle cx="220" cy="162" r="6" fill="#878787" />
-<text x="236" y="166" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Hack 0.39%</text>
+<text x="236" y="166" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Hack 0.39%</text>
 <circle cx="30" cy="186" r="6" fill="#384d54" />
-<text x="46" y="190" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Dockerfile 0.33%</text>
+<text x="46" y="190" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Dockerfile 0.33%</text>
 <circle cx="220" cy="186" r="6" fill="#A97BFF" />
-<text x="236" y="190" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Kotlin 0.18%</text>
+<text x="236" y="190" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Kotlin 0.18%</text>
 <circle cx="30" cy="210" r="6" fill="#89e051" />
-<text x="46" y="214" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Shell 0.16%</text>
+<text x="46" y="214" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Shell 0.16%</text>
 <circle cx="220" cy="210" r="6" fill="#dea584" />
-<text x="236" y="214" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>Rust 0.02%</text>
+<text x="236" y="214" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>Rust 0.02%</text>
 </g>
 </svg>

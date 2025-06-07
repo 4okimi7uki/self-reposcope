@@ -18,7 +18,7 @@ use fetch_gh_api::{fetch_all_repos, get_username, Repo};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
-    let token = env::var("GITHUB_TOKEN_KP").expect("Missing token");
+    let token = env::var("GITHUB_TOKEN").expect("Missing token");
     let client = Client::new();
     let lang_map: HashMap<String, u64>;
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();

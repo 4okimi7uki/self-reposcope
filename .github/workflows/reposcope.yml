@@ -32,7 +32,7 @@ jobs:
 
             - name: Build and Run self-reposcope
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.REPOSCOPE_TOKEN }}
               run: |
                   cargo run --release
 

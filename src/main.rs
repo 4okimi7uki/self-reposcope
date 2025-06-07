@@ -1,6 +1,5 @@
 use dotenv::dotenv;
 use reqwest::Client;
-use serde::Deserialize;
 use std::collections::HashMap;
 use std::env;
 
@@ -11,62 +10,21 @@ mod draw_svg;
 use draw_svg::generate_svg;
 use draw_svg::generate_compact_svg;
 
+mod fetch_gh_api;
+use fetch_gh_api::{fetch_all_repos, Repo};
 
-#[derive(Debug, Deserialize)]
-struct Owner {
-    login: String,
-    #[serde(rename = "type")]
-    owner_type: String, // "User" or "Organization"
-}
 
-#[derive(Debug, Deserialize)]
-struct Repo {
-    name: String,
-    private: bool,
-    fork: bool,
-    language: Option<String>,
-    owner: Owner,
-}
-
-pub async fn fetch_all_repos(token: &str) -> Result<Vec<Repo>, reqwest::Error> {
-    let client = Client::new();
-    let mut repos = vec![];
-    let mut page = 1;
-
-    loop {
-        let url = format!(
-            "https://api.github.com/user/repos?per_page=100&page={}",
-            page
-        );
-        let res = client
-            .get(&url)
-            .header("User-Agent", "self-reposcope")
-            .bearer_auth(token)
-            .send()
-            .await?;
-
-        let batch: Vec<Repo> = res.json().await?;
-        if batch.is_empty() {
-            break;
-        }
-
-        repos.extend(batch);
-        page += 1;
-    }
-
-    Ok(repos)
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
-    let TOKEN = env::var("GITHUB_TOKEN_KP").expect("Missing token");
+    let token = env::var("GITHUB_TOKEN_KP").expect("Missing token");
     let client = Client::new();
     let lang_map: HashMap<String, u64>;
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();
 
-    match fetch_all_repos(&TOKEN).await {
-        Ok(repos) => {
+    match fetch_all_repos(&token).await {
+        Ok(repos ) => {
             println!("Found {} repositories:", repos.len());
             for repo in repos {
                 if repo.fork {
@@ -86,7 +44,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 let lang_res = client
                     .get(&url)
-                    .bearer_auth(&TOKEN)
+                    .bearer_auth(&token)
                     .header("User-Agent", "self-reposcope")
                     .send()
                     .await?;

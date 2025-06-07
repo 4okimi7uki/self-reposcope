@@ -67,7 +67,7 @@ pub fn generate_compact_svg(
     color_map: &HashMap<String, String>,
     output_path: &str
 ) -> std::io::Result<()> {
-    let svg_width = 700;
+    let svg_width = 400;
     let bar_height = 20;
     let padding_top = 40;
     let legend_line_height = 24;
@@ -77,7 +77,7 @@ pub fn generate_compact_svg(
     let bar_y = padding_top + 10;
     let legend_start_y = bar_y + bar_height + 20;
 
-    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height + 20;
+    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2 ;
     let mut file = File::create(output_path)?;
     let css = include_str!("animation.css");
 
@@ -86,7 +86,8 @@ pub fn generate_compact_svg(
         file,
         r#"<svg width="{svg_width}" height="{svg_height}" xmlns="http://www.w3.org/2000/svg">"#
     )?;
-    write!(file, r#"<style>{}</style>"#, css).expect("Failed to write CSS");
+    writeln!(file, r#"<style>{}</style>"#, css).expect("Failed to write CSS");
+    writeln!(file, r#"<rect x="0" y="0" width="{}" height="{}" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />"#, svg_width - 1,svg_height - 1)?;
 
     // タイトル
     writeln!(
@@ -123,19 +124,25 @@ pub fn generate_compact_svg(
     writeln!(file, r#"<g id="lang_legend">"#)?;
 
 
-    // 凡例（縦並び）
+    // 凡例（2カラムで並べる）
+    let legend_columns = 2;
+    let column_width = svg_width / legend_columns - 10;
     for (i, (lang, bytes)) in lang_vec.iter().enumerate() {
         let percent = *bytes as f64 / total_bytes as f64 * 100.0;
-        let legend_y = legend_start_y + (i as u32) * legend_line_height;
+        let col = i % legend_columns;
+        let row = i / legend_columns;
+        let legend_x = 20 + col * column_width;
+        let legend_y = legend_start_y + (row as u32) * legend_line_height;
 
         let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
 
         writeln!(
             file,
-            r#"<circle cx="20" cy="{y}" r="{r}" fill="{color}" />
+            r#"<circle cx="{x}" cy="{y}" r="{r}" fill="{color}" />
 <text x="{}" y="{}" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='#333'>{lang} {percent:.2}%</text>"#,
-            20 + legend_dot_radius + 8,
+            legend_x + legend_dot_radius + 20,
             legend_y + 4,
+            x = legend_x + 10,
             y = legend_y,
             r = legend_dot_radius,
             color = color,

@@ -11,7 +11,7 @@ use draw_svg::generate_svg;
 use draw_svg::generate_compact_svg;
 
 mod fetch_gh_api;
-use fetch_gh_api::{fetch_all_repos, Repo};
+use fetch_gh_api::{fetch_all_repos, get_username, Repo};
 
 
 
@@ -22,6 +22,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::new();
     let lang_map: HashMap<String, u64>;
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();
+    let user_name = get_username(&token).await?;
 
     match fetch_all_repos(&token).await {
         Ok(repos ) => {
@@ -32,7 +33,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
 
                 if repo.owner.owner_type == "Organization" {
-                    continue; // Organization所有のリポジトリも除外
+                    continue; // Organization所有のリポジトリ除外
+                }
+
+                if repo.owner.login != user_name {
+                    continue; 
                 }
 
                 let owner = &repo.owner.login;
@@ -51,7 +56,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 if !lang_res.status().is_success() {
                     eprintln!(
-                        "⚠️ Failed to fetch languages for {}: {}",
+                        "Failed to fetch languages for {}: {}",
                         repo.name,
                         lang_res.status()
                     );
@@ -78,7 +83,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let color_map = load_language_colors();
-    generate_svg(&lang_vec, &color_map, "output/language_chart.svg")?;
+    // generate_svg(&lang_vec, &color_map, "output/language_chart.svg")?;
     generate_compact_svg(&lang_vec, &color_map, "output/full_languages.svg")?;
 
     Ok(())

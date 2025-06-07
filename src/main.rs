@@ -7,11 +7,11 @@ mod get_language_color;
 use get_language_color::load_language_colors;
 
 mod draw_svg;
-use draw_svg::generate_svg;
+// use draw_svg::generate_svg;
 use draw_svg::generate_compact_svg;
 
 mod fetch_gh_api;
-use fetch_gh_api::{fetch_all_repos, get_username, Repo};
+use fetch_gh_api::{fetch_all_repos, get_username};
 
 
 
@@ -20,7 +20,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
     let token = env::var("GITHUB_TOKEN").expect("Missing token");
     let client = Client::new();
-    let lang_map: HashMap<String, u64>;
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();
     let user_name = get_username(&token).await?;
 

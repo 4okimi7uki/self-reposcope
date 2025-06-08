@@ -55,9 +55,10 @@ a tool that supports **private repositories** and offers a **safe, one-click set
 
 ## 使い方 / Usage
 
-### 🚀 GitHub Actions で自動更新（おすすめ）
+### ~~🚀 GitHub Actions で自動更新（おすすめ）~~
+_🚧 Under adjustment – coming soon!_
 
-Recommended: Use with GitHub Actions 👉 [self-reposcope-action](https://github.com/4okimi7uki/self-reposcope-action)
+~~Recommended: Use with GitHub Actions 👉 [self-reposcope-action](https://github.com/4okimi7uki/self-reposcope-action)~~
 
 ### 🧪 ローカルで試す / Try It Locally (Rust CLI)
 

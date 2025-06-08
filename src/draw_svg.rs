@@ -2,64 +2,64 @@ use std::fs::File;
 use std::io::Write;
 use std::collections::HashMap;
 
-pub fn generate_svg(
-    lang_vec: &Vec<(String, u64)>,
-    color_map: &HashMap<String, String>,
-    output_path: &str
-) -> std::io::Result<()> {
-    let svg_width = 700;
-    let bar_height = 12;
-    let gap = 20;
-    let label_margin = 10;
-    let bar_start_x = 120;
-    let right_padding = 20;
-    let max_bar_width = svg_width - bar_start_x - right_padding;
-    let max_bytes = lang_vec.first().map(|(_, b)| *b).unwrap_or(1);
-    let svg_height = (bar_height + gap) * lang_vec.len() + gap;
+// pub fn generate_svg(
+//     lang_vec: &[(String, u64)],
+//     color_map: &HashMap<String, String>,
+//     output_path: &str
+// ) -> std::io::Result<()> {
+//     let svg_width = 700;
+//     let bar_height = 12;
+//     let gap = 20;
+//     let label_margin = 10;
+//     let bar_start_x = 120;
+//     let right_padding = 20;
+//     let max_bar_width = svg_width - bar_start_x - right_padding;
+//     let max_bytes = lang_vec.first().map(|(_, b)| *b).unwrap_or(1);
+//     let svg_height = (bar_height + gap) * lang_vec.len() + gap;
 
-    let mut file = File::create(output_path)?;
-    writeln!(file, r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>"#)?;
-    writeln!(
-        file,
-        r#"<svg width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">"#,
-        svg_width, svg_height
-    )?;
+//     let mut file = File::create(output_path)?;
+//     writeln!(file, r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>"#)?;
+//     writeln!(
+//         file,
+//         r#"<svg width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">"#,
+//         svg_width, svg_height
+//     )?;
 
-    for (i, (lang, bytes)) in lang_vec.iter().enumerate() {
-        let y = gap + i * (bar_height + gap);
-        let bar_width = ((*bytes as f64) / (max_bytes as f64) * max_bar_width as f64) as u64;
-        let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
-        let text_y = y + (bar_height / 2);
+//     for (i, (lang, bytes)) in lang_vec.iter().enumerate() {
+//         let y = gap + i * (bar_height + gap);
+//         let bar_width = ((*bytes as f64) / (max_bytes as f64) * max_bar_width as f64) as u64;
+//         let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
+//         let text_y = y + (bar_height / 2);
 
-        // language label
-        writeln!(
-            file,
-            r#"<text x="{label_margin}" y="{y}" font-size="13" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" fill='currentColor' alignment-baseline="hanging">{}</text>"#,
-            lang
-        )?;
+//         // language label
+//         writeln!(
+//             file,
+//             r#"<text x="{label_margin}" y="{y}" font-size="13" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" fill='currentColor' alignment-baseline="hanging">{}</text>"#,
+//             lang
+//         )?;
 
-        // bar
-        writeln!(
-            file,
-            r#"<rect x="{bar_start_x}" y="{y}" width="{bar_width}" height="{bar_height}" fill="{color}" rx="5" ry="5">
-    <animate attributeName="width" from="0" to="{bar_width}" dur="0.6s" fill="freeze" />
-</rect>"#
-        )?;
+//         // bar
+//         writeln!(
+//             file,
+//             r#"<rect x="{bar_start_x}" y="{y}" width="{bar_width}" height="{bar_height}" fill="{color}" rx="5" ry="5">
+//     <animate attributeName="width" from="0" to="{bar_width}" dur="0.6s" fill="freeze" />
+// </rect>"#
+//         )?;
 
-        // byte num
-        writeln!(
-            file,
-            r#"<text x="{}" y="{}" font-size="8" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" alignment-baseline="middle" fill="{}">{}</text>"#,
-            bar_start_x + bar_width + 5,
-            text_y,
-            color,
-            bytes
-        )?;
-    }
+//         // byte num
+//         writeln!(
+//             file,
+//             r#"<text x="{}" y="{}" font-size="8" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif" alignment-baseline="middle" fill="{}">{}</text>"#,
+//             bar_start_x + bar_width + 5,
+//             text_y,
+//             color,
+//             bytes
+//         )?;
+//     }
 
-    writeln!(file, "</svg>")?;
-    Ok(())
-}
+//     writeln!(file, "</svg>")?;
+//     Ok(())
+// }
 
 
 pub fn generate_compact_svg(

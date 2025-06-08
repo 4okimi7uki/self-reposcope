@@ -79,7 +79,7 @@ pub fn generate_compact_svg(
 
     let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2 ;
     let mut file = File::create(output_path)?;
-    let css = include_str!("style.css");
+    let css = include_str!("./assets/style.css");
 
     writeln!(file, r#"<?xml version="1.0" encoding="UTF-8"?>"#)?;
     writeln!(

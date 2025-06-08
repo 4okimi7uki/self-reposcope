@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/4okimi7uki/self-reposcope)](https://github.com/4okimi7uki/self-reposcope/blob/main/LICENSE)
 [![Run with self-reposcope-action](https://img.shields.io/badge/use--with-self--reposcope--action-007ec6?logo=githubactions)](https://github.com/4okimi7uki/self-reposcope-action)
 
-<p style="text-align: center">
+<p align="center">
 <img src="./output/full_languages.svg" alt="stats"/>
 </p>
 

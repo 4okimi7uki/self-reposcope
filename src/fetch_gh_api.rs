@@ -11,9 +11,9 @@ pub struct Owner {
 #[derive(Debug, Deserialize)]
 pub struct Repo {
     pub name: String,
-    pub private: bool,
+    // pub private: bool,
     pub fork: bool,
-    pub language: Option<String>,
+    // pub language: Option<String>,
     pub owner: Owner,
 }
 

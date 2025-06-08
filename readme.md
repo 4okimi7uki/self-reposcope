@@ -65,8 +65,6 @@ Recommended: Use with GitHub Actions 👉 [self-reposcope-action](https://github
 >
 > -   Rust 1.87.0+ (with `cargo`)
 
----
-
 1. リポジトリに対してアクセス権のある GitHub token を用意  
    _**Prepare a GitHub personal access token** with access to your repositories_
 2. このリポジトリをクローン  
@@ -84,6 +82,9 @@ GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxx
 ```bash
 cargo run --release
 ```
+
+5. `./output`に`*.svg`ファイルが出力されていることを確認  
+   _Check that the `*.svg` files are generated in the `./output` directory_
 
 ---
 

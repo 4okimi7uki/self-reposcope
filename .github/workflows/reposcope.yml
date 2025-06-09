@@ -44,7 +44,7 @@ jobs:
 
             - name: Commit and Push SVG
               env:
-                  GITHUB_TOKEN: ${{ secrets.REPOSCOPE_TOKEN }}
+                   GH_PAT: ${{ secrets.REPOSCOPE_TOKEN }}
               run: |
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -53,5 +53,5 @@ jobs:
                     echo "No changes to commit"
                   else
                     git commit -m "update: language stats svg"
-                    git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
+                    git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:main
                   fi

@@ -43,6 +43,8 @@ jobs:
                   cargo run --release
 
             - name: Commit and Push SVG
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPOSCOPE_TOKEN }}
               run: |
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -51,5 +53,5 @@ jobs:
                     echo "No changes to commit"
                   else
                     git commit -m "update: language stats svg"
-                    git push
+                    git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
                   fi

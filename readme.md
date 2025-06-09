@@ -6,7 +6,7 @@
 [![Run with self-reposcope-action](https://img.shields.io/badge/use--with-self--reposcope--action-007ec6?logo=githubactions)](https://github.com/4okimi7uki/self-reposcope-action)
 
 <p align="center">
-<img src="./output/full_languages.svg" alt="stats"/>
+<img src="https://github.com/4okimi7uki/self-reposcope/blob/main/output/full_languages.svg" alt="stats"/>
 </p>
 
 -   GitHub の **言語使用量を SVG で可視化**する CLI ツール（Rust 製）  

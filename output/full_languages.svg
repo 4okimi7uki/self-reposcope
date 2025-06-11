@@ -68,7 +68,7 @@
 </g>
 <g id="lang_legend">
 <circle cx="30" cy="90" r="6" fill="#3178c6" />
-<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>TypeScript 50.56%</text>
+<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>TypeScript 50.57%</text>
 <circle cx="220" cy="90" r="6" fill="#f1e05a" />
 <text x="236" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>JavaScript 12.88%</text>
 <circle cx="30" cy="114" r="6" fill="#4F5D95" />

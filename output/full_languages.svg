@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="400" height="234" xmlns="http://www.w3.org/2000/svg">
-<style>@media (prefers-color-scheme: light) {
-    #border {
-        fill: #ffffff;
-    }
-    text {
-        color: #333;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    #border {
-        fill: #0d1116;
-    }
-    text {
-        color: #fff;
-    }
+<style>text {
+    color: #666666;
 }
 
 @keyframes fadeIn {
@@ -33,6 +20,7 @@
         width: 660;
     }
 }
+
 #lang_legend,
 #title {
     opacity: 0;
@@ -42,7 +30,7 @@
     animation: slideIn 1.7s ease-in forwards;
 }
 </style>
-<rect id="border" x="1" y="1" width="398" height="232" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />
+<rect id="border" x="1" y="1" width="398" height="232" fill="none" stroke-width="1" rx="10" ry="10" />
 <text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#cd450b' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>
 
 <defs>
@@ -53,18 +41,18 @@
 </defs>
 <rect width="360" height="10" x="20" y="50" rx="5" ry="5" fill='#ccc' />
 <g clip-path="url(#roundedClip)">
-    <rect x="20" y="50" width="182" height="10" fill="#3178c6" />
-    <rect x="202" y="50" width="46" height="10" fill="#f1e05a" />
-    <rect x="248" y="50" width="46" height="10" fill="#4F5D95" />
-    <rect x="294" y="50" width="30" height="10" fill="#663399" />
-    <rect x="324" y="50" width="27" height="10" fill="#e34c26" />
-    <rect x="351" y="50" width="19" height="10" fill="#3572A5" />
-    <rect x="370" y="50" width="6" height="10" fill="#c6538c" />
-    <rect x="376" y="50" width="1" height="10" fill="#878787" />
-    <rect x="377" y="50" width="1" height="10" fill="#384d54" />
-    <rect x="378" y="50" width="1" height="10" fill="#A97BFF" />
-    <rect x="379" y="50" width="1" height="10" fill="#89e051" />
-    <rect x="380" y="50" width="0" height="10" fill="#dea584" />
+    <rect x="20" y="50" width="182" height="10" fill="#3178c6"> <title>TypeScript 50.57%</title> </rect>
+    <rect x="202" y="50" width="46" height="10" fill="#f1e05a"> <title>JavaScript 12.88%</title> </rect>
+    <rect x="248" y="50" width="46" height="10" fill="#4F5D95"> <title>PHP 12.85%</title> </rect>
+    <rect x="294" y="50" width="30" height="10" fill="#663399"> <title>CSS 8.37%</title> </rect>
+    <rect x="324" y="50" width="27" height="10" fill="#e34c26"> <title>HTML 7.38%</title> </rect>
+    <rect x="351" y="50" width="19" height="10" fill="#3572A5"> <title>Python 5.31%</title> </rect>
+    <rect x="370" y="50" width="6" height="10" fill="#c6538c"> <title>SCSS 1.56%</title> </rect>
+    <rect x="376" y="50" width="1" height="10" fill="#878787"> <title>Hack 0.39%</title> </rect>
+    <rect x="377" y="50" width="1" height="10" fill="#384d54"> <title>Dockerfile 0.33%</title> </rect>
+    <rect x="378" y="50" width="1" height="10" fill="#A97BFF"> <title>Kotlin 0.18%</title> </rect>
+    <rect x="379" y="50" width="1" height="10" fill="#89e051"> <title>Shell 0.16%</title> </rect>
+    <rect x="380" y="50" width="0" height="10" fill="#dea584"> <title>Rust 0.02%</title> </rect>
 </g>
 <g id="lang_legend">
 <circle cx="30" cy="90" r="6" fill="#3178c6" />

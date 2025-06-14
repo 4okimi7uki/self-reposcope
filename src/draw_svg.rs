@@ -88,7 +88,7 @@ pub fn generate_compact_svg(
     )?;
     writeln!(file, r#"<style>{}</style>"#, css).expect("Failed to write CSS");
     // border
-    writeln!(file, r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke='#ccc' stroke-width="1" rx="10" ry="10" />"#, svg_width - 2,svg_height - 2)?;
+    writeln!(file, r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke-width="1" rx="10" ry="10" />"#, svg_width - 2,svg_height - 2)?;
 
     // title
     writeln!(
@@ -116,8 +116,8 @@ pub fn generate_compact_svg(
         let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
 
         writeln!(
-            file, r#"    <rect x="{current_x}" y="{bar_y}" width="{bar_width}" height="10" fill="{color}" />"#
-        )?;
+            file, r#"    <rect x="{current_x}" y="{bar_y}" width="{bar_width}" height="10" fill="{color}"> <title>{lang} {percent:.2}%</title> </rect>"#
+        , percent = percent*100.0)?;
 
         current_x += bar_width;
     }

@@ -1,18 +1,5 @@
-@media (prefers-color-scheme: light) {
-    #border {
-        fill: #ffffff;
-    }
-    text {
-        color: #333;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    #border {
-        fill: #0d1116;
-    }
-    text {
-        color: #fff;
-    }
+text {
+    color: #666666;
 }
 
 @keyframes fadeIn {
@@ -31,6 +18,7 @@
         width: 660;
     }
 }
+
 #lang_legend,
 #title {
     opacity: 0;

@@ -140,7 +140,7 @@ pub fn generate_compact_svg(
         writeln!(
             file,
             r#"<circle cx="{x}" cy="{y}" r="{r}" fill="{color}" />
-<text x="{}" y="{}" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'>{lang} {percent:.2}%</text>"#,
+<text x="{}" y="{}" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>{lang}</tspan> {percent:.2}%</text>"#,
             legend_x + legend_dot_radius + 20,
             legend_y + 4,
             x = legend_x + 10,

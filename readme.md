@@ -3,7 +3,6 @@
 ![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2F4okimi7uki%2Fself-reposcope&label=Visitors&icon=suit-heart-fill&color=%23d63384)
 ![Rust](https://img.shields.io/badge/Language-Rust-orange?logo=rust)
 [![License](https://img.shields.io/github/license/4okimi7uki/self-reposcope)](https://github.com/4okimi7uki/self-reposcope/blob/main/LICENSE)
-[![Run with self-reposcope-action](https://img.shields.io/badge/use--with-self--reposcope--action-007ec6?logo=githubactions)](https://github.com/4okimi7uki/self-reposcope-action)
 
 <p align="center">
 <img src="https://github.com/4okimi7uki/self-reposcope/blob/main/output/full_languages.svg" alt="stats"/>
@@ -55,10 +54,73 @@ a tool that supports **private repositories** and offers a **safe, one-click set
 
 ## 使い方 / Usage
 
-### ~~🚀 GitHub Actions で自動更新（おすすめ）~~
-_🚧 Under adjustment – coming soon!_
+### 🚀 GitHub Actions で自動更新（おすすめ）/ Automatic Updates via GitHub Actions (Recommended)
 
-~~Recommended: Use with GitHub Actions 👉 [self-reposcope-action](https://github.com/4okimi7uki/self-reposcope-action)~~
+Repository にて、下記のように設定すると`./output`を生成し、SVG を出力します。  
+_By setting up the following workflow in your GitHub repository, self-reposcope will automatically generate SVG files in the `./output` directory._
+
+1. Repository の `Settings > Secrets and variables > Actions > [Repository secrets] > [New repository secret]` で  
+   Name: `REPOSCOPE_TOKEN`, Secret: `ghp_XXXXXXXXXXXXXXX`  
+   (`repo` 権限付き GitHub Token) を追加  
+   _Go to `Settings > Secrets and variables > Actions > [Repository secrets]`,  
+   then add a new secret with:_
+
+    - _**Name**: `REPOSCOPE_TOKEN`_
+    - _**Value**: your personal access token (with `repo` scope)_
+
+2. [`.github/workflows/reposcope.yml`](https://github.com/4okimi7uki/self-reposcope/blob/main/.github/workflows/reposcope.yml) を作成し、以下のように記述：  
+   _Create a workflow file at `.github/workflows/reposcope.yml` with the following content:_
+
+```bash
+name: Update Language Stats
+
+on:
+    schedule:
+        - cron: "0 0 * * 1" # Every Monday
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout target repo
+              uses: actions/checkout@v3
+
+            - name: Download self-reposcope binary from GitHub Release
+              shell: bash
+              run: |
+                  curl -L https://github.com/4okimi7uki/self-reposcope/releases/latest/download/self-reposcope -o self-reposcope
+                  chmod +x ./self-reposcope
+
+            - name: Run self-reposcope CLI
+              shell: bash
+              run: |
+                  mkdir -p output
+                  ./self-reposcope --token ${{ secrets.REPOSCOPE_TOKEN }}
+
+            - name: Commit and Push updated SVGs
+              shell: bash
+              env:
+                  GH_PAT: ${{ secrets.REPOSCOPE_TOKEN }}
+              run: |
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  git add output/*.svg
+                  if git diff --cached --quiet; then
+                    echo "No changes to commit"
+                  else
+                    git commit -m "update: language stats svg"
+                    git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:main
+                  fi
+```
+
+3. 手動実行(`Actions` > `Update Language Stats` > `Run workflow`) または 自動で毎週更新されます。差分がなければ新規出力されません。
+
+    _You can run the workflow manually (`Actions > Update Language Stats > Run workflow`), or it will automatically run every Monday.
+    If there are no changes in the output, nothing will be committed._
 
 ### 🧪 ローカルで試す / Try It Locally (Rust CLI)
 

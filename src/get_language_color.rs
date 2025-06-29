@@ -1,14 +1,18 @@
+use serde::Deserialize;
 use std::collections::HashMap;
-use std::fs;
 
+#[derive(Deserialize)]
+struct LangColor {
+    color: Option<String>,
+}
 
 pub fn load_language_colors() -> HashMap<String, String> {
-    let json = fs::read_to_string("./src/assets/languages_colors.json").expect("Not found such file: languages_colors.json");
-    let parsed: serde_json::Value = serde_json::from_str(&json).unwrap();
+    let json_str = include_str!("../src/assets/languages_colors.json");
+    let raw_map: HashMap<String, LangColor> =
+        serde_json::from_str(json_str).expect("Failed to parse embedded JSON");
 
-    parsed.as_object().unwrap().iter().filter_map(|(lang, props)| {
-        props.get("color").and_then(|color| {
-            color.as_str().map(|c| (lang.clone(), c.to_string()))
-        })
-    }).collect()
+    raw_map
+        .into_iter()
+        .filter_map(|(lang, obj)| obj.color.map(|c| (lang, c)))
+        .collect()
 }

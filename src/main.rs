@@ -1,7 +1,6 @@
 use dotenv::dotenv;
 use reqwest::Client;
 use std::collections::HashMap;
-use std::env;
 
 mod get_language_color;
 use get_language_color::load_language_colors;
@@ -12,13 +11,22 @@ use draw_svg::generate_compact_svg;
 
 mod fetch_gh_api;
 use fetch_gh_api::{fetch_all_repos, get_username};
+use clap::Parser;
 
+#[derive(Parser, Debug)]
+#[command(name = "self-reposcope", about = "GitHub Language Stats Generator")]
+struct Args {
+    /// GitHub Token
+    #[clap(short, long, env = "GITHUB_TOKEN")]
+    token: String,
+}
 
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
-    let token = env::var("GITHUB_TOKEN").expect("Missing token");
+    let args = Args::parse();
+    let token = args.token;
     let client = Client::new();
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();
     let user_name = get_username(&token).await?;

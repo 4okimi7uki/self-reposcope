@@ -1,6 +1,6 @@
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::Write;
-use std::collections::HashMap;
 
 // pub fn generate_svg(
 //     lang_vec: &[(String, u64)],
@@ -61,11 +61,10 @@ use std::collections::HashMap;
 //     Ok(())
 // }
 
-
 pub fn generate_compact_svg(
     lang_vec: &Vec<(String, u64)>,
     color_map: &HashMap<String, String>,
-    output_path: &str
+    output_path: &str,
 ) -> std::io::Result<()> {
     let svg_width = 400;
     let bar_height = 20;
@@ -77,7 +76,7 @@ pub fn generate_compact_svg(
     let bar_y = padding_top + 10;
     let legend_start_y = bar_y + bar_height + 20;
 
-    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2 ;
+    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2;
     let mut file = File::create(output_path)?;
     let css = include_str!("./assets/style.css");
 
@@ -88,26 +87,37 @@ pub fn generate_compact_svg(
     )?;
     writeln!(file, r#"<style>{}</style>"#, css).expect("Failed to write CSS");
     // border
-    writeln!(file, r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke-width="1" rx="10" ry="10" />"#, svg_width - 2,svg_height - 2)?;
+    writeln!(
+        file,
+        r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke-width="1" rx="10" ry="10" />"#,
+        svg_width - 2,
+        svg_height - 2
+    )?;
 
     // title
     writeln!(
         file,
         r#"<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#cd450b' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>"#
     )?;
-    
+
     // stack-bar
     let mut current_x = 20;
     let bar_total_width = svg_width - 40;
-    
-    writeln!(file, r#"
+
+    writeln!(
+        file,
+        r#"
 <defs>
     <clipPath id="roundedClip">
         <rect id="bar_back" x="{current_x}" y="{bar_y}" width="{bar_total_width}" height="10" rx="5" ry="5">
         </rect>
     </clipPath>
-</defs>"#)?;
-    writeln!(file, r#"<rect width="{bar_total_width}" height="10" x="{current_x}" y="{bar_y}" rx="5" ry="5" fill='#ccc' />"#)?;
+</defs>"#
+    )?;
+    writeln!(
+        file,
+        r#"<rect width="{bar_total_width}" height="10" x="{current_x}" y="{bar_y}" rx="5" ry="5" fill='#ccc' />"#
+    )?;
     writeln!(file, r#"<g clip-path="url(#roundedClip)">"#)?;
 
     for (lang, bytes) in lang_vec {
@@ -116,14 +126,15 @@ pub fn generate_compact_svg(
         let color = color_map.get(lang).map(|s| s.as_str()).unwrap_or("#cccccc");
 
         writeln!(
-            file, r#"    <rect x="{current_x}" y="{bar_y}" width="{bar_width}" height="10" fill="{color}"> <title>{lang} {percent:.2}%</title> </rect>"#
-        , percent = percent*100.0)?;
+            file,
+            r#"    <rect x="{current_x}" y="{bar_y}" width="{bar_width}" height="10" fill="{color}"> <title>{lang} {percent:.2}%</title> </rect>"#,
+            percent = percent * 100.0
+        )?;
 
         current_x += bar_width;
     }
     writeln!(file, r#"</g>"#)?;
     writeln!(file, r#"<g id="lang_legend">"#)?;
-
 
     // legend (2 columns)
     let legend_columns = 2;

@@ -10,8 +10,8 @@ mod draw_svg;
 use draw_svg::generate_compact_svg;
 
 mod fetch_gh_api;
-use fetch_gh_api::{fetch_all_repos, get_username};
 use clap::Parser;
+use fetch_gh_api::{fetch_all_repos, get_username};
 
 #[derive(Parser, Debug)]
 #[command(name = "self-reposcope", about = "GitHub Language Stats Generator")]
@@ -20,7 +20,6 @@ struct Args {
     #[clap(short, long, env = "GITHUB_TOKEN")]
     token: String,
 }
-
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -32,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let user_name = get_username(&token).await?;
 
     match fetch_all_repos(&token).await {
-        Ok(repos ) => {
+        Ok(repos) => {
             println!("Found {} repositories:", repos.len());
             for repo in repos {
                 if repo.fork {
@@ -44,7 +43,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
 
                 if repo.owner.login != user_name {
-                    continue; 
+                    continue;
                 }
 
                 let owner = &repo.owner.login;

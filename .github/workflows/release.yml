@@ -1,4 +1,4 @@
-name: Release
+name: Release Binary (Linux)
 
 on:
     push:
@@ -8,15 +8,19 @@ on:
 jobs:
     build-release:
         runs-on: ubuntu-latest
+
         steps:
-            - uses: actions/checkout@v3
-            - name: Install Rust
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Set up Rust
               uses: dtolnay/rust-toolchain@stable
 
             - name: Build binary
               run: cargo build --release
 
-            - name: Upload to Release
+            - name: Upload binary to GitHub Release
               uses: softprops/action-gh-release@v1
               with:
                   files: target/release/self-reposcope
+                  token: ${{ secrets.REPOSCOPE_TOKEN }}

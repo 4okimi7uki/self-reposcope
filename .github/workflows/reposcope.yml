@@ -2,7 +2,7 @@ name: Update Language Stats
 
 on:
     schedule:
-        - cron: "0 0 * * 1"
+        - cron: "0 0 * * 1" # Every Monday
     workflow_dispatch:
 
 jobs:
@@ -12,41 +12,25 @@ jobs:
             contents: write
 
         steps:
-            - name: Checkout target repo (with submodules)
+            - name: Checkout target repo
               uses: actions/checkout@v3
-              with:
-                  submodules: true
 
-            - name: Set up Rust
-              uses: actions-rs/toolchain@v1
-              with:
-                  toolchain: stable
-                  override: true
+            - name: Download self-reposcope binary from GitHub Release
+              shell: bash
+              run: |
+                  curl -L https://github.com/4okimi7uki/self-reposcope/releases/latest/download/self-reposcope -o self-reposcope
+                  chmod +x ./self-reposcope
 
-            - name: Cache cargo dependencies
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      ~/.cargo/registry
-                      ~/.cargo/git
-                      target
-                  key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-cargo-
-
-            - name: Install dependencies
-              run: sudo apt-get update && sudo apt-get install -y pkg-config libssl-dev
-
-            - name: Build and Run self-reposcope
-              env:
-                  GITHUB_TOKEN: ${{ secrets.REPOSCOPE_TOKEN }}
+            - name: Run self-reposcope CLI
+              shell: bash
               run: |
                   mkdir -p output
-                  cargo run --release
+                  ./self-reposcope --token ${{ secrets.REPOSCOPE_TOKEN }}
 
-            - name: Commit and Push SVG
+            - name: Commit and Push updated SVGs
+              shell: bash
               env:
-                   GH_PAT: ${{ secrets.REPOSCOPE_TOKEN }}
+                  GH_PAT: ${{ secrets.REPOSCOPE_TOKEN }}
               run: |
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'

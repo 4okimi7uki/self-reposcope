@@ -23,4 +23,4 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                   files: target/release/self-reposcope
-                  token: ${{ secrets.REPOSCOPE_TOKEN }}
+                  token: ${{ secrets.GH_RELEASE_TOKEN }}

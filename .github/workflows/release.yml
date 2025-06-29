@@ -1,0 +1,22 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "v*"
+
+jobs:
+    build-release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install Rust
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: Build binary
+              run: cargo build --release
+
+            - name: Upload to Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  files: target/release/self-reposcope

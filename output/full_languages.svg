@@ -52,28 +52,28 @@
 </defs>
 <rect width="360" height="10" x="20" y="50" rx="5" ry="5" fill='#ccc' />
 <g clip-path="url(#roundedClip)">
-    <rect x="20" y="50" width="116" height="10" fill="#3178c6"> <title>TypeScript 32.29%</title> </rect>
-    <rect x="136" y="50" width="71" height="10" fill="#f1e05a"> <title>JavaScript 19.73%</title> </rect>
-    <rect x="207" y="50" width="64" height="10" fill="#663399"> <title>CSS 17.75%</title> </rect>
-    <rect x="271" y="50" width="48" height="10" fill="#dea584"> <title>Rust 13.43%</title> </rect>
-    <rect x="319" y="50" width="25" height="10" fill="#A97BFF"> <title>Kotlin 7.06%</title> </rect>
-    <rect x="344" y="50" width="13" height="10" fill="#e34c26"> <title>HTML 3.68%</title> </rect>
-    <rect x="357" y="50" width="9" height="10" fill="#384d54"> <title>Dockerfile 2.55%</title> </rect>
-    <rect x="366" y="50" width="6" height="10" fill="#3572A5"> <title>Python 1.68%</title> </rect>
-    <rect x="372" y="50" width="4" height="10" fill="#89e051"> <title>Shell 1.06%</title> </rect>
-    <rect x="376" y="50" width="3" height="10" fill="#4F5D95"> <title>PHP 0.76%</title> </rect>
+    <rect x="20" y="50" width="116" height="10" fill="#3178c6"> <title>TypeScript 32.26%</title> </rect>
+    <rect x="136" y="50" width="71" height="10" fill="#f1e05a"> <title>JavaScript 19.72%</title> </rect>
+    <rect x="207" y="50" width="64" height="10" fill="#663399"> <title>CSS 17.73%</title> </rect>
+    <rect x="271" y="50" width="49" height="10" fill="#dea584"> <title>Rust 13.51%</title> </rect>
+    <rect x="320" y="50" width="25" height="10" fill="#A97BFF"> <title>Kotlin 7.05%</title> </rect>
+    <rect x="345" y="50" width="13" height="10" fill="#e34c26"> <title>HTML 3.68%</title> </rect>
+    <rect x="358" y="50" width="9" height="10" fill="#384d54"> <title>Dockerfile 2.55%</title> </rect>
+    <rect x="367" y="50" width="6" height="10" fill="#3572A5"> <title>Python 1.68%</title> </rect>
+    <rect x="373" y="50" width="4" height="10" fill="#89e051"> <title>Shell 1.06%</title> </rect>
+    <rect x="377" y="50" width="3" height="10" fill="#4F5D95"> <title>PHP 0.76%</title> </rect>
 </g>
 <g id="lang_legend">
 <circle cx="30" cy="90" r="6" fill="#3178c6" />
-<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>TypeScript</tspan> 32.29%</text>
+<text x="46" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>TypeScript</tspan> 32.26%</text>
 <circle cx="220" cy="90" r="6" fill="#f1e05a" />
-<text x="236" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>JavaScript</tspan> 19.73%</text>
+<text x="236" y="94" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>JavaScript</tspan> 19.72%</text>
 <circle cx="30" cy="114" r="6" fill="#663399" />
-<text x="46" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>CSS</tspan> 17.75%</text>
+<text x="46" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>CSS</tspan> 17.73%</text>
 <circle cx="220" cy="114" r="6" fill="#dea584" />
-<text x="236" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>Rust</tspan> 13.43%</text>
+<text x="236" y="118" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>Rust</tspan> 13.51%</text>
 <circle cx="30" cy="138" r="6" fill="#A97BFF" />
-<text x="46" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>Kotlin</tspan> 7.06%</text>
+<text x="46" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>Kotlin</tspan> 7.05%</text>
 <circle cx="220" cy="138" r="6" fill="#e34c26" />
 <text x="236" y="142" font-size="13" font-family="system-ui, -apple-system, sans-serif" fill='currentColor'><tspan>HTML</tspan> 3.68%</text>
 <circle cx="30" cy="162" r="6" fill="#384d54" />

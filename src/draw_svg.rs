@@ -66,17 +66,18 @@ pub fn generate_compact_svg(
     color_map: &HashMap<String, String>,
     output_path: &str,
 ) -> std::io::Result<()> {
-    let svg_width = 400;
+    let svg_width = 410;
     let bar_height = 20;
     let padding_top = 40;
     let legend_line_height = 24;
     let legend_dot_radius = 6;
+    let buffer = 10;
 
     let total_bytes: u64 = lang_vec.iter().map(|(_, b)| b).sum();
-    let bar_y = padding_top + 10;
+    let bar_y = padding_top + 20;
     let legend_start_y = bar_y + bar_height + 20;
 
-    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2;
+    let svg_height = legend_start_y + lang_vec.len() as u32 * legend_line_height / 2 + buffer;
     let mut file = File::create(output_path)?;
     let css = include_str!("./assets/style.css");
 
@@ -89,7 +90,7 @@ pub fn generate_compact_svg(
     // border
     writeln!(
         file,
-        r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill="none" stroke-width="1" rx="10" ry="10" />"#,
+        r#"<rect id="border" x="1" y="1" width="{}" height="{}" fill='#19140fff' stroke-width="1" rx="15" ry="15" />"#,
         svg_width - 2,
         svg_height - 2
     )?;
@@ -97,7 +98,7 @@ pub fn generate_compact_svg(
     // title
     writeln!(
         file,
-        r#"<text id="title" x="20" y="30" font-size="18" font-weight="bold" fill='#cd450b' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>"#
+        r#"<text id="title" x="20" y="40" font-size="18" font-weight="bold" fill='#db4c0fff' font-family="system-ui, -apple-system, sans-serif">Most Used Languages</text>"#
     )?;
 
     // stack-bar

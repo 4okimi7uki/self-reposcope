@@ -1,17 +1,19 @@
 text {
-    color: #666666;
+    color: #a89f9bff;
 }
 
-@media (prefers-color-scheme: dark) {
-    tspan {
-        fill: #f3f3f3;
-    }
+tspan {
+    fill: #f3f3f3;
+}
+
+/* @media (prefers-color-scheme: dark) {
 }
 @media (prefers-color-scheme: light) {
     tspan {
         fill: #333;
+        fill: #f3f3f3;
     }
-}
+} */
 
 @keyframes fadeIn {
     from {

@@ -84,7 +84,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let filtered_langs: HashMap<String, u64> = lang_map
                     .clone()
                     .into_iter()
-                    .filter(|(lang, _)| !excluded_languages.contains(lang))
+                    .filter(|(lang, _)| {
+                        !excluded_languages.iter().any(|excl| excl.eq_ignore_ascii_case(lang))
+                    })
                     .collect();
 
                 for (lang, bytes) in filtered_langs {

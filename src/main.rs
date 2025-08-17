@@ -19,6 +19,10 @@ struct Args {
     /// GitHub Token
     #[clap(short, long, env = "GITHUB_TOKEN")]
     token: String,
+
+    /// Comma-separated string-list of languages to exclude
+    #[clap(short, long, env = "EXCLUDED_LANGUAGES", default_value = "")]
+    excluded_languages: String,
 }
 
 #[tokio::main]
@@ -26,6 +30,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
     let args = Args::parse();
     let token = args.token;
+    let excluded_languages: Vec<String> = args
+        .excluded_languages
+        .split(',')
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+        .collect();
     let client = Client::new();
     let mut total_lang_map: HashMap<String, u64> = HashMap::new();
     let user_name = get_username(&token).await?;
@@ -71,7 +81,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 let lang_map: HashMap<String, u64> = lang_res.json().await?;
 
-                for (lang, bytes) in lang_map {
+                let filtered_langs: HashMap<String, u64> = lang_map
+                    .clone()
+                    .into_iter()
+                    .filter(|(lang, _)| {
+                        !excluded_languages.iter().any(|excl| excl.eq_ignore_ascii_case(lang))
+                    })
+                    .collect();
+
+                for (lang, bytes) in filtered_langs {
                     *total_lang_map.entry(lang).or_insert(0) += bytes;
                 }
             }

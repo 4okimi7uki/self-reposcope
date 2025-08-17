@@ -13,6 +13,10 @@
 -   **プライベートリポジトリ**にも対応  
     _Supports **private repositories**_
 
+## What's New
+
+-   Added support for excluding specific languages via `--excluded-languages` or `EXCLUDED_LANGUAGES` 🎉 (Thanks @Snootic, PR #21)
+
 ## できること / Features
 
 -   GitHub API を用いて、自分のリポジトリを網羅的に集計  
@@ -148,6 +152,41 @@ cargo run --release
 
 5. `./output`に`*.svg`ファイルが出力されていることを確認  
    _Check that the `*.svg` files are generated in the `./output` directory_
+
+### ⚙️ Option: 言語の除外 / Excluding Specific Languages
+
+特定の言語を可視化から除外したい場合は、以下のいずれかの方法で指定できます：
+
+-   CLI オプション `--excluded-languages`
+-   環境変数 `EXCLUDED_LANGUAGES`
+
+_You can exclude specific languages either by using the `--excluded-languages` CLI option or the `EXCLUDED_LANGUAGES` environment variable._
+
+For example:
+
+`CLI`
+
+```bash
+# Specify directly
+./self-reposcope --token ${{ secrets.REPOSCOPE_TOKEN }} --excluded-languages "Jupyter Notebook, HTML, CSS"
+
+# Using GitHub Secrets
+./self-reposcope --token ${{ secrets.REPOSCOPE_TOKEN }} --excluded-languages ${{ secrets.EXCLUDED_LANGUAGES }}
+```
+
+`.env`
+
+```env
+EXCLUDED_LANGUAGES="Jupyter Notebook, HTML, CSS"
+```
+
+> Languages must be separated by commas. Wrap the list in quotes if any language name contains spaces, otherwise it may not be recognized.
+
+## 🤝 Contributors
+
+<a href="https://github.com/4okimi7uki/self-reposcope/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=4okimi7uki/self-reposcope" alt="contributors">
+</a>
 
 ---
 
